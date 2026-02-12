@@ -71,13 +71,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-        - name: Set up Snyk
-          uses: snyk/actions/setup@master
+      - name: Set up Snyk
+        uses: snyk/actions/setup@master
 
-        - name: Snyk test (deps)
-          env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          run: snyk test --file=requirements.txt --severity-threshold=high
+      - name: Snyk test (deps)
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test --file=requirements.txt --severity-threshold=high
 
   docker:
     runs-on: ubuntu-latest
