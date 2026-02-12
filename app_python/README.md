@@ -99,3 +99,16 @@ docker run -p 5000:5000 devops-info-service
 docker pull kvassoedik/devops-info-service
 docker run -p 5000:5000 kvassoedik/devops-info-service
 ```
+
+## Continuous Integration
+
+![python-ci](https://github.com/kvassoedik/DevOps-Core-Course/actions/workflows/python-ci.yml/badge.svg)
+
+## Testing
+
+### Run locally
+```bash
+pip install -r app_python/requirements.txt -r app_python/requirements-dev.txt
+ruff check app_python
+pytest -q
+```
