@@ -80,3 +80,22 @@ curl http://127.0.0.1:5000/health
 | SERVICE_NAME | devops-info-service | Service name | 
 | SERVICE_VERSION | 1.0.0 | Service version | 
 | SERVICE_DESCRIPTION | DevOps course info service | Service description | 
+
+
+## Docker
+
+### Build image
+```bash
+docker build -t devops-info-service .
+```
+
+### Run container
+```bash
+docker run -p 5000:5000 devops-info-service
+```
+
+### Pull from Docker Hub
+```bash
+docker pull kvassoedik/devops-info-service
+docker run -p 5000:5000 kvassoedik/devops-info-service
+```
