@@ -23,7 +23,7 @@ Stages:
 I use **CalVer**: `YYYY.MM.DD.<run_number>` plus `latest`.
 
 ## Evidence
-- Link to a successful workflow run: 
+- Link to a successful workflow run: https://github.com/kvassoedik/DevOps-Core-Course/actions/runs/21948369748
 - Docker Hub repo: https://hub.docker.com/repository/docker/kvassoedik/devops-info-service
 - Screenshot of local tests: `docs/screenshots/09-local-tests.png`
 - Badge in README: added
