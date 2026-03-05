@@ -39,7 +39,7 @@ jobs:
       - name: Run ansible-lint
         run: |
           cd ansible
-          ansible-lint playbooks/*.yml
+          ansible-lint -c .ansible-lint playbooks/*.yml roles/**/tasks/*.yml roles/**/handlers/*.yml
       - name: Cleanup vault password file
         if: always()
         run: |

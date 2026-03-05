@@ -1,0 +1,11 @@
+profile: basic
+
+skip_list:
+  - yaml[truthy]
+  - yaml[new-line-at-end-of-file]
+  - key-order[task]
+  - var-naming[no-role-prefix]
+  - command-instead-of-module
+  - ignore-errors
+  - fqcn[action-core]
+  - name[casing]
