@@ -1,9 +1,46 @@
-- name: Update apt cache
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
+- name: Common | packages block (apt update + install)
+  block:
+    - name: Common | update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
 
-- name: Install common packages
-  apt:
-    name: "{{ common_packages }}"
-    state: present
+    - name: Common | install common packages
+      ansible.builtin.apt:
+        name: "{{ common_packages }}"
+        state: present
+
+  rescue:
+    - name: Common | apt cache failed, try fix-missing
+      ansible.builtin.command: apt-get update --fix-missing
+      changed_when: false
+
+    - name: Common | retry install common packages
+      ansible.builtin.apt:
+        name: "{{ common_packages }}"
+        state: present
+
+  always:
+    - name: Common | log completion
+      ansible.builtin.copy:
+        dest: /tmp/common_role_done.log
+        content: "common role completed on {{ inventory_hostname }} at {{ ansible_date_time.iso8601 }}\n"
+        owner: root
+        group: root
+        mode: "0644"
+
+  become: true
+  tags:
+    - common
+    - packages
+
+- name: Common | users block (placeholder)
+  block:
+    - name: Common | ensure docker group exists
+      ansible.builtin.group:
+        name: docker
+        state: present
+  become: true
+  tags:
+    - common
+    - users

@@ -5,10 +5,5 @@
   vars_files:
     - ../group_vars/all.yml
 
-  pre_tasks:
-    - name: Show docker_image
-      debug:
-        var: docker_image
-
   roles:
-    - app_deploy
+    - web_app

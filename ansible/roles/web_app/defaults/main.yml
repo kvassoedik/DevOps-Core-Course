@@ -3,7 +3,10 @@ docker_image: nginx
 docker_tag: latest
 app_port: 5000
 app_internal_port: 80
-compose_project_dir: "/opt/{{ app_name }}"
+
 docker_compose_version: "3.8"
+compose_project_dir: "/opt/{{ app_name }}"
+
 web_app_env: {}
+
 web_app_wipe: false
