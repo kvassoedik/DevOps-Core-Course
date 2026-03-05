@@ -1,0 +1,37 @@
+name: Ansible Deployment
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ansible/**'
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: pip install ansible ansible-lint
+
+      - name: Run ansible-lint
+        run: |
+          cd ansible
+          ansible-lint playbooks/*.yml
+
+  deploy:
+    needs: lint
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          cd ansible
+          echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > vault_pass
+          ansible-playbook playbooks/deploy.yml \
+            --vault-password-file vault_pass
