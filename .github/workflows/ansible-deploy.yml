@@ -2,6 +2,9 @@ name: Ansible Deployment
 
 on:
   push:
+    branches:
+      - master
+      - lab06
     paths:
       - 'ansible/**'
 
