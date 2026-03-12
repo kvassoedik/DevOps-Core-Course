@@ -1,0 +1,8 @@
+web_app_name: devops-app
+web_app_docker_image: nginx
+web_app_docker_tag: latest
+web_app_port: 5000
+web_app_internal_port: 80
+web_app_compose_project_dir: "/opt/{{ web_app_name }}"
+web_app_env: {}
+web_app_wipe: false

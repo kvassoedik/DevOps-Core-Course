@@ -1,0 +1,54 @@
+- name: Docker install block
+  tags:
+    - docker
+    - docker_install
+  become: true
+  block:
+    - name: Install docker packages
+      ansible.builtin.apt:
+        name: "{{ docker_packages }}"
+        state: present
+
+  rescue:
+    - name: Wait before retry
+      ansible.builtin.pause:
+        seconds: 10
+
+    - name: Retry docker package install
+      ansible.builtin.apt:
+        name: "{{ docker_packages }}"
+        state: present
+
+- name: Docker config block
+  tags:
+    - docker
+    - docker_config
+  become: true
+  block:
+    - name: Ensure docker service is enabled and started
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ docker_user }}"
+        groups: docker
+        append: true
+      notify: Restart docker
+
+- name: Docker always block
+  tags:
+    - docker
+  become: true
+  block:
+    - name: Docker service check
+      ansible.builtin.debug:
+        msg: "Ensuring docker is enabled"
+  always:
+    - name: Ensure docker service remains enabled
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
